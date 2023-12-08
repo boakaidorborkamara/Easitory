@@ -22,13 +22,20 @@ app.listen(3000, () => {
   console.log("App is running on port 3000.");
 });
 
-// routes
+// ROUTES
 app.get("/", (req, res) => {
+  res.status(200).json({ msg: "welcome to the api" });
+});
+
+// get all categories
+app.get("/categories", (req, res) => {
+  let categories = [];
   db.collection("category")
     .find()
-    .forEach((item) => {
-      console.log("item", item);
+    .forEach((category) => {
+      categories.push(category);
+    })
+    .then(() => {
+      res.status(200).json({ categories: categories });
     });
-
-  res.status(200).json({ msg: "welcome to the api" });
 });
