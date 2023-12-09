@@ -48,12 +48,16 @@ app.get("/categories/:id", (req, res) => {
   let id = req.params.id;
   console.log("id", id);
 
-  if (!ObjectId.isValid) {
+  if (ObjectId.isValid) {
     db.collection("category")
       .findOne({ _id: new ObjectId(id) })
       .then((result) => {
-        console.log(result);
-        res.status(200).json(result);
+        // sent category details if category is in db
+        if (result !== null) {
+          res.status(200).json(result);
+        } else {
+          res.status(500).json({ msg: "Category doesn't exists." });
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -75,5 +79,26 @@ app.post("/categories", (req, res) => {
     })
     .catch((err) => {
       res.status(500).json(err);
+    });
+});
+
+// edit specific category
+app.put("/category/:id", (req, res) => {
+  console.log("editing...");
+});
+
+// delete specific category
+app.delete("/categories/:id", (req, res) => {
+  console.log("deleting...");
+  let id = req.params.id;
+  db.collection("category")
+    .deleteOne({ _id: new ObjectId(id) })
+    .then((err) => {
+      if (err) {
+        console.log("ERR", err);
+        res.status(500).json(err);
+      } else {
+        res.status(200).json({ msg: "Category deleted" });
+      }
     });
 });
