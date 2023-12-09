@@ -5,6 +5,8 @@ let db_name = "easitoryDB";
 
 // init app and middleware
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // configure db
 let db;
@@ -60,4 +62,18 @@ app.get("/categories/:id", (req, res) => {
   } else {
     res.status(500).json({ msg: "invalid ID" });
   }
+});
+
+//add new category
+app.post("/categories", (req, res) => {
+  let new_category = req.body;
+
+  db.collection("category")
+    .insertOne(new_category)
+    .then((result) => {
+      res.status(201).json(result);
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
 });
