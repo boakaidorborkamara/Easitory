@@ -68,16 +68,36 @@ router.post("/item", (req, res) => {
     });
 });
 
+router.put("/item/:id", (req, res) => {
+  let query = { id: req.params.id };
+  let new_values = { $set: req.body };
+
+  console.log("query", query);
+
+  db.collection("items")
+    .updateOne(query, new_values)
+    .then((err, result) => {
+      if (err) {
+        console.log("ERR", err);
+        res.status(500).json(err);
+      } else {
+        console.log("RES", result);
+      }
+    });
+});
+
 router.delete("/item/:id", (req, res) => {
   let id = req.params.id;
   db.collection("items")
     .deleteOne({ _id: new ObjectId(id) })
     .then((result) => {
-      console.log(result);
+      console.log("RESULT", result);
+      res.status(200).json(result);
     })
     .catch((err) => {
       if (err) {
         console.log(err);
+        res.status(500).json(err);
       }
     });
 });
