@@ -1,0 +1,7 @@
+#hero-section{
+    height: 70vh;
+    background-color: yellow  !important;
+   background-image: url("../images/hero-image3.jpg");
+   background-size:cover;
+   background-repeat: no-repeat;
+}
