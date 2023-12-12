@@ -76,20 +76,18 @@ router.put("/item/:id", (req, res) => {
 
   db.collection("items")
     .updateOne(query, new_values)
-    .then((err, result) => {
-      if (err) {
-        console.log("ERR", err);
-        res.status(500).json(err);
-      } else {
-        console.log("RES", result);
-      }
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 });
 
 router.delete("/item/:id", (req, res) => {
   let id = req.params.id;
   db.collection("items")
-    .deleteOne({ _id: new ObjectId(id) })
+    .deleteOne({ id: id })
     .then((result) => {
       console.log("RESULT", result);
       res.status(200).json(result);
