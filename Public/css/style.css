@@ -1,6 +1,6 @@
 #hero-section{
     height: 70vh;
-   background-image: url("../images/hero-image3.jpg");
+    background-image: linear-gradient(to right,  rgba(13, 13, 13, 0.5), rgb(0, 0, 0)), url("../images/hero-image3.jpg");
    background-size:cover;
    background-repeat: no-repeat;
 }
