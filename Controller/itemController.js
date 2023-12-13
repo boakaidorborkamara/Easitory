@@ -25,12 +25,15 @@ const getItems = (req, res) => {
       console.log(item);
     })
     .then(() => {
-      res.status(200).json(items);
+      // res.status(200).json(items);
+      console.log(items);
     })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
     });
+
+  res.render("pages/items");
 };
 
 const getItemDetails = (req, res) => {
