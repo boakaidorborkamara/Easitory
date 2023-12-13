@@ -11,6 +11,9 @@ router.get("/", (req, res) => {
 // get all categories
 router.get("/categories", categoryController.getCategories);
 
+// get all categories
+router.get("/categories/add", categoryController.displayNewCategoryForm);
+
 // get category details
 router.get("/categories/:id", categoryController.getCategoryDetails);
 

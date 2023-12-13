@@ -51,6 +51,10 @@ const getCategoryDetails = (req, res) => {
   }
 };
 
+const displayNewCategoryForm = (req, res) => {
+  res.render("pages/add-category");
+};
+
 const addCategory = (req, res) => {
   let new_category = req.body;
 
@@ -103,6 +107,7 @@ const deleteCategory = (req, res) => {
 
 module.exports = {
   getCategories,
+  displayNewCategoryForm,
   getCategoryDetails,
   addCategory,
   editCategory,
