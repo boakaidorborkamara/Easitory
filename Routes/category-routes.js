@@ -4,7 +4,8 @@ const categoryController = require("../Controller/categoryController");
 
 // ROUTES
 router.get("/", (req, res) => {
-  res.status(200).json({ msg: "welcome to the api" });
+  res.render("pages/index");
+  // res.status(200).json({ msg: "welcome to the api" });
 });
 
 // get all categories
