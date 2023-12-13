@@ -23,8 +23,11 @@ const getCategories = (req, res) => {
       categories.push(category);
     })
     .then(() => {
-      res.status(200).json({ categories: categories });
+      // res.status(200).json({ categories: categories });
+      console.log(categories);
     });
+
+  res.render("pages/categories");
 };
 
 const getCategoryDetails = (req, res) => {
