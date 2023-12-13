@@ -43,11 +43,13 @@ const getItemDetails = (req, res) => {
     .findOne({ _id: new ObjectId(item_id) })
     .then((result) => {
       console.log(result);
-      res.status(200).json(result);
+      // res.status(200).json(result);
     })
     .catch((err) => {
       console.log(err);
     });
+
+  res.render("pages/items-details");
 };
 
 const addItem = (req, res) => {
