@@ -52,6 +52,10 @@ const getItemDetails = (req, res) => {
   res.render("pages/items-details");
 };
 
+const displayNewItemForm = (req, res) => {
+  res.render("pages/add-item");
+};
+
 const addItem = (req, res) => {
   let new_item = req.body;
   console.log("new item", new_item);
@@ -98,6 +102,7 @@ const deleteItem = (req, res) => {
 module.exports = {
   getItems,
   getItemDetails,
+  displayNewItemForm,
   addItem,
   editItem,
   deleteItem,

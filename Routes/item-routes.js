@@ -5,6 +5,8 @@ const categoryController = require("../Controller/itemController");
 // get all items
 router.get("/items", categoryController.getItems);
 
+router.get("/items/add", categoryController.displayNewItemForm);
+
 router.get("/items/:id", categoryController.getItemDetails);
 
 router.post("/items", categoryController.addItem);
