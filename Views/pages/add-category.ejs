@@ -13,21 +13,21 @@
         <section class="container py-5 ">
             <h2 class="pb-4">Add New Category</h2>
             <div class="row gap-4">
-                <form>
+                <form method="post" action="/categories" enctype="multipart/form-data">
                     <div class="form-group mb-4">
-                        <label for="itemName">Item Name:</label>
-                        <input type="text" class="form-control" id="itemName">
+                        <label for="categoryName">Item Name:</label>
+                        <input type="text" class="form-control" name="category-name" required id="categoryName">
                     </div>
                    
                     
                     <div class="form-group mb-4">
-                        <label for="itemDescription">Description:</label>
-                        <textarea class="form-control" id="itemDescription" rows="3"></textarea>
+                        <label for="categoryDescription">Description:</label>
+                        <textarea class="form-control" id="categoryDescription" name="description" rows="3" required></textarea>
                     </div>
 
                     <div class="mb-3 ">
                         <label for="formFile" class="form-label">Category Image:</label>
-                        <input class="form-control" type="file" id="formFile">
+                        <input class="form-control" name="category-image" required type="file" id="formFile">
                     </div>
                     <button type="submit" class="btn btn-primary rounded-0">Add Category</button>
                 </form>

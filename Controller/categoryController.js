@@ -60,15 +60,16 @@ const displayNewCategoryForm = (req, res) => {
 
 const addCategory = (req, res) => {
   let new_category = req.body;
+  console.log(new_category);
 
-  db.collection("category")
-    .insertOne(new_category)
-    .then((result) => {
-      res.status(201).json(result);
-    })
-    .catch((err) => {
-      res.status(500).json(err);
-    });
+  // db.collection("category")
+  //   .insertOne(new_category)
+  //   .then((result) => {
+  //     res.status(201).json(result);
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).json(err);
+  //   });
 };
 
 const editCategory = (req, res) => {
