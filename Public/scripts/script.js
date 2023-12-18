@@ -1,24 +1,25 @@
-let category_form = document.getElementById("category-form");
+let category = {
+  dom_elements: {
+    category_form: document.getElementById("categoryForm"),
+    name_ele: document.getElementById("categoryName"),
+    description_ele: document.getElementById("description"),
+    file_ele: document.getElementById("formFile"),
+  },
 
-const formValidation = {
-  validateCategoryForm: (e) => {
-    // stop execution if script doesn't find category form
-    if (!category_form) {
-      console.log("can't find");
-      return;
+  getFormInput() {
+    console.log("validating");
+  },
+
+  validate_category_form() {
+    console.log("validating");
+  },
+
+  handleSubmit() {
+    // don't run the script if the category form is not found
+    if (!this.dom_elements.category_form) {
+      return false;
     }
-
-    // all elements that are included in the category form
-    let form_elements = Array.from(category_form.elements);
-
-    // let formData = new formData()
-    category_form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      form_elements.forEach((ele) => {
-        console.log(ele.value);
-      });
-    });
   },
 };
 
-formValidation.validateCategoryForm();
+category.handleSubmit();
