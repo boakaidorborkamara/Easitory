@@ -1,17 +1,76 @@
+// accepts a file info and return base64 string
+async function readFile(file) {
+  return new Promise((resolve, reject) => {
+    let file_base64_string = null;
+
+    // create File Reader instance
+    let file_reader = new FileReader();
+
+    // load file content
+    file_reader.onload = () => {
+      file_base64_string = file_reader.result;
+    };
+
+    // return base64 string when file content is done loading
+    file_reader.onloadend = () => {
+      resolve((file_base64_string = file_reader.result));
+    };
+
+    // read file
+    if (file) {
+      file_reader.readAsDataURL(file);
+    } else {
+      console.log("no file selected");
+    }
+  });
+
+  // return file_base64_string;
+}
+
 let category = {
   dom_elements: {
     category_form: document.getElementById("categoryForm"),
     name_ele: document.getElementById("categoryName"),
-    description_ele: document.getElementById("description"),
+    description_ele: document.getElementById("categoryDescription"),
     file_ele: document.getElementById("formFile"),
   },
 
-  getFormInput() {
-    console.log("validating");
+  async getFormData() {
+    console.log("reading file");
+    let file = this.dom_elements.file_ele.files[0];
+
+    let formData = {
+      name: this.dom_elements.name_ele.value,
+      description: this.dom_elements.description_ele.value,
+      image: await readFile(file),
+    };
+
+    console.log("form Data", formData);
+    return formData;
   },
 
   validate_category_form() {
     console.log("validating");
+  },
+
+  async createNewCategory(data) {
+    let url = "/categories";
+    let category = await data;
+    JSON.stringify(category);
+    // category.toString();
+    console.log("Data", category);
+
+    fetch(url, {
+      method: "post",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(category),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   },
 
   handleSubmit() {
@@ -19,6 +78,13 @@ let category = {
     if (!this.dom_elements.category_form) {
       return false;
     }
+
+    // submit form if form exist
+    this.dom_elements.category_form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      let categoryInfo = this.getFormData();
+      this.createNewCategory(categoryInfo);
+    });
   },
 };
 

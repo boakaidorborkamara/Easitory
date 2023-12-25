@@ -58,19 +58,23 @@ const displayNewCategoryForm = (req, res) => {
   res.render("pages/add-category");
 };
 
-const addCategory = (req, res) => {
-  let new_category = req.body;
-  console.log(new_category);
+const addCategory = [
+  (req, res) => {
+    let new_category = req.body;
+    console.log("new_category", new_category);
 
-  // db.collection("category")
-  //   .insertOne(new_category)
-  //   .then((result) => {
-  //     res.status(201).json(result);
-  //   })
-  //   .catch((err) => {
-  //     res.status(500).json(err);
-  //   });
-};
+    res.status(200).json({ got: "working" });
+
+    // db.collection("category")
+    //   .insertOne(new_category)
+    //   .then((result) => {
+    //     res.status(201).json(result);
+    //   })
+    //   .catch((err) => {
+    //     res.status(500).json(err);
+    //   });
+  },
+];
 
 const editCategory = (req, res) => {
   let query = { id: req.params.id };

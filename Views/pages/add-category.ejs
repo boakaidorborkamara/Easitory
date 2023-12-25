@@ -13,7 +13,7 @@
         <section class="container py-5 ">
             <h2 class="pb-4">Add New Category</h2>
             <div class="row gap-4">
-                <form method="post" action="/categories" enctype="multipart/form-data" id="categoryForm">
+                <form action="/categories" method="POST"  id="categoryForm" enctype="multipart/form-data">
                     <div class="form-group mb-4">
                         <label for="categoryName">Item Name:</label>
                         <input type="text" required minlength="2"  class="form-control" name="category-name" value="test" id="categoryName">
@@ -27,7 +27,7 @@
 
                     <div class="mb-3 ">
                         <label for="formFile" class="form-label">Category Image:</label>
-                        <input class="form-control" name="category-image" required type="file" id="formFile">
+                        <input class="form-control" name="image" required type="file" id="formFile">
                     </div>
                     <button type="submit" class="btn btn-primary rounded-0">Add Category</button>
                 </form>
