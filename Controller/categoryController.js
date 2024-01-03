@@ -60,8 +60,25 @@ const displayNewCategoryForm = (req, res) => {
 
 const addCategory = [
   (req, res) => {
+    const fs = require("fs");
+    const { Buffer } = require("buffer");
+
     let new_category = req.body;
-    console.log("new_category", new_category);
+    // console.log("new_category", new_category);
+
+    let data = new_category.image;
+    data = data.split(";");
+    data = data[1];
+    data = data.split(",");
+    console.log("daTA", data[1]);
+
+    let buff = Buffer.from(data[1], "base64");
+    console.log(buff);
+    fs.writeFileSync("stack-abuse-logo-out.png", buff);
+
+    console.log(
+      "Base64 image data converted to file: stack-abuse-logo-out.png"
+    );
 
     res.status(200).json({ got: "working" });
 
