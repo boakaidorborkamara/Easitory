@@ -27,6 +27,7 @@ async function readFile(file) {
   // return file_base64_string;
 }
 
+// handle category
 let category = {
   dom_elements: {
     category_form: document.getElementById("categoryForm"),
@@ -102,4 +103,18 @@ let category = {
   },
 };
 
+// handle items
+let item = {
+  dom_elements: {
+    item_form: document.getElementById("itemForm"),
+    name_ele: document.getElementById("itemName"),
+    description_ele: document.getElementById("itemDescription"),
+    file_ele: document.getElementById("formFile"),
+    category_ele: document.getElementById("category"),
+    items_amount: document.getElementById("items_amount"),
+    price: document.getElementById("price"),
+  },
+};
+
 category.handleSubmit();
+console.log("DOM ELE", item.dom_elements);
