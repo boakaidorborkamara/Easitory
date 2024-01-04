@@ -100,7 +100,6 @@ const addCategory = [
       );
 
       // modify request body
-
       req.body.image = image_path;
       console.log("new category", new_category);
 
