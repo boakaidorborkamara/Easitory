@@ -20,79 +20,24 @@
                 </div>
             </div>
             <div class="row gap-4">
-                <div class="card col-4 border-0 border-start border-end shadow-lg" style="width: 18rem;">
-                    <img src="https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Bakery</h5>
-                        <p class="card-text">This is category description</p>
-                        <div class="row gap-2">
-                            <a href="#" class="btn btn-success rounded-0 col-12">View Items</a>
+
+                <% categories.forEach(function(ele){ %>
+                    <div class="card col-4 border-0 border-start border-end shadow-lg" style="width: 18rem;">
+                        <img class="card-img-top" alt="..."  src=<%= ele.image %>>
+                        <div class="card-body">
+                            <h5 class="card-title"><%= ele.name %></h5>
+                            <p class="card-text"><%= ele.description %></p>
+                            <div class="row gap-2">
+                                <a href=`<%= ele.image %>` class="btn btn-success rounded-0 col-12">View Items</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <% }); %>
+               
 
-                <div class="card col-4 border-0 border-start border-end shadow-lg" style="width: 18rem;">
-                    <img src="https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Bakery</h5>
-                        <p class="card-text">This is category description</p>
-                        <div class="row gap-2">
-                            <a href="#" class="btn btn-success rounded-0 col-12">View Items</a>
-                        </div>
-                    </div>
-                </div>
+               
 
-                <div class="card col-4 border-0 border-start border-end shadow-lg" style="width: 18rem;">
-                    <img src="https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Bakery</h5>
-                        <p class="card-text">This is category description</p>
-                        <div class="row gap-2">
-                            <a href="#" class="btn btn-success rounded-0 col-12">View Items</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card col-4 border-0 border-start border-end shadow-lg" style="width: 18rem;">
-                    <img src="https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Bakery</h5>
-                        <p class="card-text">This is category description</p>
-                        <div class="row gap-2">
-                            <a href="#" class="btn btn-success rounded-0 col-12">View Items</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card col-4 border-0 border-start border-end shadow-lg" style="width: 18rem;">
-                    <img src="https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Bakery</h5>
-                        <p class="card-text">This is category description</p>
-                        <div class="row gap-2">
-                            <a href="#" class="btn btn-success rounded-0 col-12">View Items</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card col-4 border-0 border-start border-end shadow-lg" style="width: 18rem;">
-                    <img src="https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Bakery</h5>
-                        <p class="card-text">This is category description</p>
-                        <div class="row gap-2">
-                            <a href="#" class="btn btn-success rounded-0 col-12">View Items</a>
-                        </div>
-                    </div>
-                </div>
-
-                
-
+               
             </div>
         </section>
     </main>

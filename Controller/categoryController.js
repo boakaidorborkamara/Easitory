@@ -26,9 +26,10 @@ const getCategories = (req, res) => {
     .then(() => {
       // res.status(200).json({ categories: categories });
       console.log(categories);
+      res.render("pages/categories", { categories: categories });
     });
 
-  res.render("pages/categories");
+  // res.render("pages/categories");
 };
 
 const getCategoryDetails = (req, res) => {
@@ -60,41 +61,69 @@ const displayNewCategoryForm = (req, res) => {
 };
 
 const addCategory = [
+  async (req, res, next) => {
+    try {
+      //modules
+      const fs = require("fs");
+      const path = require("path");
+      const { Buffer } = require("buffer");
+
+      // data from FrontEnd
+      let new_category = req.body;
+      let base64_data = new_category.image.file_data;
+
+      // get data string from base64_data text by splitting and removing un-needed strings
+      base64_data = base64_data.split(";");
+      base64_data = base64_data[1];
+      base64_data = base64_data.split(",");
+      base64_data = base64_data[1];
+
+      // convert base64_string to binary data
+      let buff = Buffer.from(base64_data, "base64");
+
+      // create unique filename for each file by including the date the file was uploaded
+      let file_path = "./Public/images/uploads/";
+      let date_created = Date.now();
+      let new_category_image = new_category.image.file_details.name;
+
+      // remove white spaces from file name
+      new_category_image = new_category_image.split(" ");
+      new_category_image = new_category_image.join("-");
+
+      let image_path = `/images/uploads/${date_created}-${new_category_image}`;
+      let file_name = `${file_path}${date_created}-${new_category_image}`;
+
+      // create a new file from binary data
+      fs.writeFileSync(file_name, buff);
+      console.log(
+        "Base64 image data converted to file: stack-abuse-logo-out.png"
+      );
+
+      // modify request body
+
+      req.body.image = image_path;
+      console.log("new category", new_category);
+
+      // call next middleware to upload data to db after creating the file
+      next();
+    } catch (err) {
+      console.log("ERR", err);
+      res.status(500).json("Error Uploading file");
+    }
+  },
+
   (req, res) => {
-    const fs = require("fs");
-    const path = require("path");
-    const { Buffer } = require("buffer");
+    console.log("req", req.body);
 
     let new_category = req.body;
-    // console.log("new_category", new_category);
-
-    let data = new_category.image.file_data;
-
-    data = data.split(";");
-    data = data[1];
-    data = data.split(",");
-
-    let buff = Buffer.from(data[1], "base64");
-    let date = Date.now();
-    let file_name = `./Public/images/uploads/${date}-${new_category.image.file_details.name}`;
-    console.log("filename", file_name);
-    console.log("dir name", path.join(__dirname, "/Public"));
-    fs.writeFileSync(file_name, buff);
-
-    // console.log(
-    //   "Base64 image data converted to file: stack-abuse-logo-out.png"
-    // );
-
-    res.status(200).json({ got: "working" });
-
-    // db.collection("category")
-    //   .insertOne(new_category)
-    //   .then((result) => {
-    //     res.status(201).json(result);
-    //   })
-    //   .catch((err) => {
-    //     res.status(500).json(err);
-    //   });
+    db.collection("category")
+      .insertOne(new_category)
+      .then((result) => {
+        res.status(201).json(result);
+      })
+      .catch((err) => {
+        res.status(500).json(err);
+      });
   },
 ];
 
