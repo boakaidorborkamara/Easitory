@@ -1,5 +1,6 @@
 const { ObjectId } = require("mongodb");
 const { connectDB } = require("../dbConfig");
+const { dirname } = require("path");
 
 // configure db
 let db;
@@ -61,24 +62,28 @@ const displayNewCategoryForm = (req, res) => {
 const addCategory = [
   (req, res) => {
     const fs = require("fs");
+    const path = require("path");
     const { Buffer } = require("buffer");
 
     let new_category = req.body;
     // console.log("new_category", new_category);
 
-    let data = new_category.image;
+    let data = new_category.image.file_data;
+
     data = data.split(";");
     data = data[1];
     data = data.split(",");
-    console.log("daTA", data[1]);
 
     let buff = Buffer.from(data[1], "base64");
-    console.log(buff);
-    fs.writeFileSync("stack-abuse-logo-out.png", buff);
+    let date = Date.now();
+    let file_name = `./Public/images/uploads/${date}-${new_category.image.file_details.name}`;
+    console.log("filename", file_name);
+    console.log("dir name", path.join(__dirname, "/Public"));
+    fs.writeFileSync(file_name, buff);
 
-    console.log(
-      "Base64 image data converted to file: stack-abuse-logo-out.png"
-    );
+    // console.log(
+    //   "Base64 image data converted to file: stack-abuse-logo-out.png"
+    // );
 
     res.status(200).json({ got: "working" });
 

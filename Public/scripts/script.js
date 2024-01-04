@@ -38,11 +38,15 @@ let category = {
   async getFormData() {
     console.log("reading file");
     let file = this.dom_elements.file_ele.files[0];
+    console.log("File", file);
 
     let formData = {
       name: this.dom_elements.name_ele.value,
       description: this.dom_elements.description_ele.value,
-      image: await readFile(file),
+      image: {
+        file_details: { name: file.name, type: file.type },
+        file_data: await readFile(file),
+      },
     };
 
     console.log("form Data", formData);
