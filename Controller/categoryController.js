@@ -21,11 +21,16 @@ const getCategories = (req, res) => {
   db.collection("category")
     .find()
     .forEach((category) => {
+      category._id.toString();
+      console.log(category._id);
       categories.push(category);
     })
     .then(() => {
-      // res.status(200).json({ categories: categories });
-      console.log(categories);
+      // convert all id to string before sending to the fronend
+      categories.forEach((ele) => {
+        ele._id = ele._id.toString();
+      });
+
       res.render("pages/categories", { categories: categories });
     });
 
@@ -42,6 +47,7 @@ const getCategoryDetails = (req, res) => {
       .then((result) => {
         // sent category details if category is in db
         if (result !== null) {
+          console.log("RESULT", result);
           res.status(200).json(result);
         } else {
           res.status(500).json({ msg: "Category doesn't exists." });
