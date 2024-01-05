@@ -137,6 +137,36 @@ let item = {
     return formData;
   },
 
+  async createNewItem(data) {
+    let url = "/items";
+    let item = await data;
+    JSON.stringify(item);
+    // category.toString();
+    console.log("Creating Data", item);
+
+    fetch(url, {
+      method: "post",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(item),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        // if (!data.acknowledged === true) {
+        //   alert("Sever Error! Unable to upload");
+        //   return;
+        // }
+
+        // show success message for 2sec and then redirect to catgories page
+        // setTimeout(() => {
+        //   alert("Category added!");
+        //   window.location.href = "/categories";
+        // }, 2000);
+      });
+  },
+
   handleSubmit() {
     // don't run the script if the item form is not found
     if (!this.dom_elements.item_form) {
@@ -147,7 +177,7 @@ let item = {
     this.dom_elements.item_form.addEventListener("submit", async (e) => {
       e.preventDefault();
       let itemInfo = this.getFormData();
-      // this.createNewCategory(categoryInfo);
+      this.createNewItem(itemInfo);
     });
   },
 };

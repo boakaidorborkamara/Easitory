@@ -59,6 +59,8 @@ const displayNewItemForm = (req, res) => {
 const addItem = (req, res) => {
   let new_item = req.body;
   console.log("new item", new_item);
+  res.status(200).json({ msg: "received" });
+  return;
   db.collection("items")
     .insertOne(new_item)
     .then((result) => {
