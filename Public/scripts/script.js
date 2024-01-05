@@ -154,16 +154,16 @@ let item = {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        // if (!data.acknowledged === true) {
-        //   alert("Sever Error! Unable to upload");
-        //   return;
-        // }
+        if (!data.acknowledged === true) {
+          alert("Server Error! Unable to upload");
+          return;
+        }
 
         // show success message for 2sec and then redirect to catgories page
-        // setTimeout(() => {
-        //   alert("Category added!");
-        //   window.location.href = "/categories";
-        // }, 2000);
+        setTimeout(() => {
+          alert("Item added!");
+          window.location.href = "/items";
+        }, 2000);
       });
   },
 
