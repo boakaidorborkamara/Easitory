@@ -13,7 +13,7 @@
         <section class="container py-5 ">
             <h2 class="pb-4">Add New Item</h2>
             <div class="row gap-4">
-                <form id="itemForm">
+                <form method="post" id="itemForm">
                     <div class="form-group mb-4">
                         <label for="itemName" class="fw-bold">Name:</label>
                         <input type="text" class="form-control" id="itemName">
@@ -41,7 +41,7 @@
 
                     <div class="form-group mb-4">
                         <label for="category" class="fw-bold">Number of Items:</label>
-                        <select class="form-select" aria-label="items amount" id="items-amount">
+                        <select class="form-select" aria-label="items amount" id="quantity">
                             <option selected>Select Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>

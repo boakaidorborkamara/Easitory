@@ -111,10 +111,47 @@ let item = {
     description_ele: document.getElementById("itemDescription"),
     file_ele: document.getElementById("formFile"),
     category_ele: document.getElementById("category"),
-    items_amount: document.getElementById("items_amount"),
+    quantity_ele: document.getElementById("quantity"),
     price: document.getElementById("price"),
+  },
+
+  async getFormData() {
+    console.log("reading file");
+
+    let file = this.dom_elements.file_ele.files[0];
+    console.log("File", file);
+
+    let formData = {
+      name: this.dom_elements.name_ele.value,
+      description: this.dom_elements.description_ele.value,
+      category: this.dom_elements.category_ele.value,
+      quantity: this.dom_elements.quantity_ele.value,
+      price: this.dom_elements.price.value,
+      image: {
+        file_details: { name: file.name, type: file.type },
+        file_data: await readFile(file),
+      },
+    };
+
+    console.log("items Data", formData);
+    return formData;
+  },
+
+  handleSubmit() {
+    // don't run the script if the item form is not found
+    if (!this.dom_elements.item_form) {
+      return false;
+    }
+
+    // submit form if form exist
+    this.dom_elements.item_form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      let itemInfo = this.getFormData();
+      // this.createNewCategory(categoryInfo);
+    });
   },
 };
 
 category.handleSubmit();
+item.handleSubmit();
 console.log("DOM ELE", item.dom_elements);
