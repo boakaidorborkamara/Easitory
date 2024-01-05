@@ -1,5 +1,6 @@
 const { ObjectId } = require("mongodb");
 const { connectDB } = require("../dbConfig");
+const axios = require("axios");
 
 // configure db
 let db;
@@ -27,13 +28,12 @@ const getItems = (req, res) => {
     .then(() => {
       // res.status(200).json(items);
       console.log(items);
+      res.render("pages/items", { items: items });
     })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
     });
-
-  res.render("pages/items");
 };
 
 const getItemDetails = (req, res) => {
@@ -53,7 +53,21 @@ const getItemDetails = (req, res) => {
 };
 
 const displayNewItemForm = (req, res) => {
-  res.render("pages/add-item");
+  let categories = [];
+
+  db.collection("category")
+    .find()
+    .forEach((category) => {
+      categories.push(category);
+    })
+    .then(() => {
+      // convert all id to string before sending to the fronend
+      categories.forEach((ele) => {
+        ele._id = ele._id.toString();
+      });
+
+      res.render("pages/add-item", { categories: categories });
+    });
 };
 
 const addItem = [
