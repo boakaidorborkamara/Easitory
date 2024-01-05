@@ -15,6 +15,26 @@ connectDB((db_client, err) => {
   db = db_client;
 });
 
+const index = (req, res) => {
+  let categories = [];
+
+  db.collection("category")
+    .find()
+    .forEach((category) => {
+      category._id.toString();
+      console.log(category._id);
+      categories.push(category);
+    })
+    .then(() => {
+      // convert all id to string before sending to the fronend
+      categories.forEach((ele) => {
+        ele._id = ele._id.toString();
+      });
+
+      res.render("pages/index", { categories: categories });
+    });
+};
+
 const getCategories = (req, res) => {
   let categories = [];
 
@@ -33,8 +53,6 @@ const getCategories = (req, res) => {
 
       res.render("pages/categories", { categories: categories });
     });
-
-  // res.render("pages/categories");
 };
 
 const getCategoryDetails = (req, res) => {
@@ -170,6 +188,7 @@ const deleteCategory = (req, res) => {
 };
 
 module.exports = {
+  index,
   getCategories,
   displayNewCategoryForm,
   getCategoryDetails,

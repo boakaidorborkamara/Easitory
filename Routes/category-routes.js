@@ -3,10 +3,7 @@ const router = express.Router();
 const categoryController = require("../Controller/categoryController");
 
 // ROUTES
-router.get("/", (req, res) => {
-  res.render("pages/index");
-  // res.status(200).json({ msg: "welcome to the api" });
-});
+router.get("/", categoryController.index);
 
 // get all categories
 router.get("/categories", categoryController.getCategories);

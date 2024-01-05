@@ -36,46 +36,17 @@
                 </a>
             </div>
             <div class="row gap-4">
-                <div class="col-lg-5 bg-light border shadow-sm d-flex p-2">
-                    <img src="https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        alt="" class="w-50">
-                    <div class="mx-4">
-                        <h3>Bakery</h3>
-                        <p>6 Avaliable</p>
-                        <button type="button" class="btn btn-dark my-2 rounded-0">BROWSE</button>
-                    </div>
-                </div>
-                <div class="col-lg-5 bg-light border shadow-sm d-flex p-2">
-                    <img src="https://images.pexels.com/photos/229789/pexels-photo-229789.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        alt="" class="w-50">
-                    <div class="mx-4">
-                        <h3>Frozen</h3>
-                        <p>6 Avaliable</p>
-                        <button type="button" class="btn btn-dark my-2 rounded-0">BROWSE</button>
-                    </div>
-                </div>
-                <div class="col-lg-5 bg-light border shadow-sm d-flex p-2">
-                    <img src="https://images.pexels.com/photos/4033324/pexels-photo-4033324.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        alt="" class="w-50">
-                    <div class="mx-4">
-                        <h3>Pantry</h3>
-                        <p>6 Avaliable</p>
-                        <button type="button" class="btn btn-dark my-2 rounded-0">BROWSE</button>
-                    </div>
-                </div>
 
-                <div class="col-lg-5 bg-light border shadow-sm d-flex p-2">
-                    <img src="https://images.pexels.com/photos/8287393/pexels-photo-8287393.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        alt="" class="w-50">
-                    <div class="mx-4">
-                        <h3>Fresh</h3>
-                        <p>6 Avaliable</p>
-                        <button type="button" class="btn btn-dark my-2 rounded-0">BROWSE</button>
+                <% categories.forEach(function(category){ %>
+                    <div class="col-lg-5 bg-light border shadow-sm d-flex p-2">
+                        <img src=<%= category.image %> alt="" class="w-50">
+                        <div class="mx-4">
+                            <h3><%= category.name %></h3>
+                            <p>6 Avaliable</p>
+                            <button type="button" class="btn btn-dark my-2 rounded-0">BROWSE</button>
+                        </div>
                     </div>
-                </div>
-              
-               
-               
+                <% }); %>
             </div>
         </section>
     </main>
