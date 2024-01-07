@@ -17,19 +17,37 @@ connectDB((db_client, err) => {
 
 const index = (req, res) => {
   let categories = [];
+  let items = [];
 
   db.collection("category")
     .find()
     .forEach((category) => {
-      category._id.toString();
-      console.log(category._id);
       categories.push(category);
     })
     .then(() => {
-      // convert all id to string before sending to the fronend
+      // convert all id to string before sending to the frontend
       categories.forEach((ele) => {
         ele._id = ele._id.toString();
       });
+
+      // console.log("CATEGORIES", categories);
+
+      // query items
+      // db.collection("items")
+      //   .find()
+      //   .forEach((item) => {
+      //     items.push(item);
+      //   })
+      //   .then(() => {
+      //     console.log("items arr", items);
+      //   });
+
+      // db.collection("items").aggregate([
+      //   { $match: { category: "Building" } },
+      //   { $count: { $sum: 1 } },
+      // ]);
+
+      db.collection("items").find().count();
 
       res.render("pages/index", { categories: categories });
     });
