@@ -32,7 +32,7 @@
                         <select class="form-select" aria-label="category" id="category">
                             <option selected>Select Category</option>
                             <% categories.forEach(function(ele){ %>
-                                <option value=<%= ele.name %>><%= ele.name %></option>
+                                <option value=<%= ele._id %>><%= ele.name %></option>
                             <% }); %>
                         </select>
                     </div>

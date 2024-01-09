@@ -66,11 +66,13 @@ const displayNewItemForm = (req, res) => {
         ele._id = ele._id.toString();
       });
 
+      console.log("Category", categories);
       res.render("pages/add-item", { categories: categories });
     });
 };
 
 const addItem = [
+  // store image
   (req, res, next) => {
     const fs = require("fs");
     const path = require("path");
@@ -112,17 +114,36 @@ const addItem = [
     // call next middleware to upload data to db after creating the file
     next();
   },
+  // get category
+  (req, res, next) => {
+    let category_id = req.body.category;
+    console.log("category id", category_id);
+
+    let category = [];
+
+    db.collection("category")
+      .findOne({ _id: new ObjectId(category_id) })
+      .then((result) => {
+        // console.log("RESULT", result);
+        req.body.category = result;
+        next();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  // store data in db
   (req, res) => {
     let new_item = req.body;
     console.log(req.body);
     // res.status(200).json({ msg: "received" });
 
-    db.collection("items")
-      .insertOne(new_item)
-      .then((result) => {
-        console.log(result);
-        res.status(200).json(result);
-      });
+    // db.collection("items")
+    //   .insertOne(new_item)
+    //   .then((result) => {
+    //     console.log(result);
+    //     res.status(200).json(result);
+    //   });
   },
 ];
 
