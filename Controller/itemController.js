@@ -116,16 +116,18 @@ const addItem = [
   },
   // get category
   (req, res, next) => {
+    // category id from frontend
     let category_id = req.body.category;
-    console.log("category id", category_id);
-
-    let category = [];
 
     db.collection("category")
       .findOne({ _id: new ObjectId(category_id) })
       .then((result) => {
-        // console.log("RESULT", result);
+        // convert datatype of id value
+        result._id = result._id.toString();
+
+        // update request body
         req.body.category = result;
+
         next();
       })
       .catch((err) => {
@@ -138,12 +140,12 @@ const addItem = [
     console.log(req.body);
     // res.status(200).json({ msg: "received" });
 
-    // db.collection("items")
-    //   .insertOne(new_item)
-    //   .then((result) => {
-    //     console.log(result);
-    //     res.status(200).json(result);
-    //   });
+    db.collection("items")
+      .insertOne(new_item)
+      .then((result) => {
+        console.log(result);
+        res.status(200).json(result);
+      });
   },
 ];
 
