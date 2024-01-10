@@ -114,7 +114,7 @@ const addItem = [
     // call next middleware to upload data to db after creating the file
     next();
   },
-  // get category
+  // get category base on id and add it to the request body
   (req, res, next) => {
     // category id from frontend
     let category_id = req.body.category;
@@ -134,16 +134,13 @@ const addItem = [
         console.log(err);
       });
   },
-  // store data in db
+  // store data from request body to the database
   (req, res) => {
     let new_item = req.body;
-    console.log(req.body);
-    // res.status(200).json({ msg: "received" });
 
     db.collection("items")
       .insertOne(new_item)
       .then((result) => {
-        console.log(result);
         res.status(200).json(result);
       });
   },

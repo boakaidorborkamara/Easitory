@@ -1,6 +1,7 @@
 const { ObjectId } = require("mongodb");
 const { connectDB } = require("../dbConfig");
 const { dirname } = require("path");
+const { count } = require("console");
 
 // configure db
 let db;
@@ -15,43 +16,49 @@ connectDB((db_client, err) => {
   db = db_client;
 });
 
-const index = (req, res) => {
-  let categories = [];
-  let items = [];
+const index = [
+  // get categories
+  (req, res, next) => {
+    req.body.categories = [];
+    req.body.items = [];
 
-  db.collection("category")
-    .find()
-    .forEach((category) => {
-      categories.push(category);
-    })
-    .then(() => {
-      // convert all id to string before sending to the frontend
-      categories.forEach((ele) => {
-        ele._id = ele._id.toString();
+    db.collection("category")
+      .find()
+      .forEach((category) => {
+        req.body.categories.push(category);
+      })
+      .then(() => {
+        // convert all id to string before sending to the frontend
+        req.body.categories.forEach((ele) => {
+          ele._id = ele._id.toString();
+        });
+
+        console.log("CATEGORIES", req.body.categories);
+
+        next();
       });
+  },
+  //get product cout based on category
+  (req, res) => {
+    // an array of all categories available in the db
+    let categories = req.body.categories;
 
-      // console.log("CATEGORIES", categories);
-
-      // query items
-      // db.collection("items")
-      //   .find()
-      //   .forEach((item) => {
-      //     items.push(item);
-      //   })
-      //   .then(() => {
-      //     console.log("items arr", items);
-      //   });
-
-      // db.collection("items").aggregate([
-      //   { $match: { category: "Building" } },
-      //   { $count: { $sum: 1 } },
-      // ]);
-
-      db.collection("items").find().count();
-
-      res.render("pages/index", { categories: categories });
+    // loop through categories array
+    categories.forEach((category) => {
+      console.log("category", category);
+      // count the amount of items that belongs to each category
+      db.collection("items")
+        .countDocuments({
+          "category._id": category._id,
+        })
+        .then((result) => {
+          console.log("Count", result);
+        });
     });
-};
+
+    res.render("pages/index", { categories: categories });
+  },
+];
 
 const getCategories = (req, res) => {
   let categories = [];
@@ -214,3 +221,20 @@ module.exports = {
   editCategory,
   deleteCategory,
 };
+
+`{
+  "_id": {
+    "$oid": "659d6c8c013de9a5886bbf8c"
+  },
+  "name": "xxxxxxxxx",
+  "description": "wexxxxxx",
+  "category": {
+    "_id": "6598408fa25a958f98939f7d",
+    "name": "Building Materials",
+    "description": "building materials",
+    "image": "/images/uploads/1704476815274-pexels-daniel-absi-952670.jpg"
+  },
+  "quantity": "23",
+  "price": "2222222",
+  "image": "/images/uploads/1704815756470-National-Policy-on-Electronics.jpg"
+}`;
