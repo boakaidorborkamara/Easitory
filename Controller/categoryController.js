@@ -20,7 +20,7 @@ const index = [
   // get categories
   (req, res, next) => {
     req.body.categories = [];
-    req.body.items = [];
+    req.body.items_count = [];
 
     db.collection("category")
       .find()
@@ -38,25 +38,40 @@ const index = [
         next();
       });
   },
-  //get product cout based on category
-  (req, res) => {
+  //get product count based on category
+  (req, res, next) => {
     // an array of all categories available in the db
     let categories = req.body.categories;
+    let categories_lenght = categories.length;
 
     // loop through categories array
-    categories.forEach((category) => {
-      console.log("category", category);
-      // count the amount of items that belongs to each category
-      db.collection("items")
-        .countDocuments({
+    categories.forEach(async (category) => {
+      try {
+        // count the amount of items that belongs to each category
+        let items = await db.collection("items");
+        let result = await items.countDocuments({
           "category._id": category._id,
-        })
-        .then((result) => {
-          console.log("Count", result);
         });
-    });
 
-    res.render("pages/index", { categories: categories });
+        // name for each category
+        category.items_count = result;
+
+        // reduces lenght
+        categories_lenght--;
+
+        // call next when count is done for all categories which mean count is 0
+        if (categories_lenght === 0) {
+          next();
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  },
+  (req, res) => {
+    res.render("pages/index", {
+      categories: req.body.categories,
+    });
   },
 ];
 

@@ -42,7 +42,22 @@
                         <img src=<%= category.image %> alt="" class="w-50">
                         <div class="mx-4">
                             <h3><%= category.name %></h3>
-                            <p>6 Avaliable</p>
+
+                            <% if (category.items_count > 2) { %>
+                                <p>
+                                    <%= category.items_count %> Items
+                                </p>
+                            <% } 
+                            else{ %>
+                                <p>
+                                    <%= category.items_count %> Item
+                                </p>
+                            <% }
+                            
+                            %>
+                            
+
+                            
                             <button type="button" class="btn btn-dark my-2 rounded-0">BROWSE</button>
                         </div>
                     </div>
